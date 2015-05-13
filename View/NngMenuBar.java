@@ -13,10 +13,12 @@ public class NngMenuBar extends JMenuBar implements ActionListener {
 	private JMenuItem itemNew = new JMenuItem("New Game");
 	private JMenuItem itemOpen = new JMenuItem("Open");
 	private JMenuItem itemExit = new JMenuItem("Exit");
+	private JMenuItem itemChangeSize = new JMenuItem("Change Field Size");
 	
-	public NngMenuBar(NngMainPanel mainPanel2) {
+	public NngMenuBar(NngMainPanel mainPanel) {
 		JMenu menuFile = new JMenu("File");
-		this.mainPanel = mainPanel2;
+		JMenu menuOptions = new JMenu("Options");
+		this.mainPanel = mainPanel;
 		
 		itemNew.addActionListener(this);
 		itemNew.setAccelerator(KeyStroke.getKeyStroke("ctrl N"));
@@ -25,12 +27,18 @@ public class NngMenuBar extends JMenuBar implements ActionListener {
 		itemExit.addActionListener(this);
 		itemExit.setAccelerator(KeyStroke.getKeyStroke("alt F4"));
 		
+		itemChangeSize.addActionListener(this);
+		
 		menuFile.add(itemNew);
 		menuFile.addSeparator();
 		menuFile.add(itemOpen);
 		menuFile.addSeparator();
 		menuFile.add(itemExit);
+		
+		menuOptions.add(itemChangeSize);
+		
 		add(menuFile);
+		add(menuOptions);
 	}
 
 
@@ -54,6 +62,11 @@ public class NngMenuBar extends JMenuBar implements ActionListener {
 		}
 		if (e.getSource() == itemExit) {
 			System.exit(0);
+		}
+		
+		if (e.getSource() == itemChangeSize) {
+			JFrame parentFrame = (JFrame) this.getParent();
+			JDialog dialog = new NngChangeSizeDialog(parentFrame);
 		}
 	}
 }

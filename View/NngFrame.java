@@ -13,7 +13,7 @@ public class NngFrame extends JFrame
    public NngFrame()
    {
 	      setTitle("Nonogram");
-          new NngWelcomeDialog(this);
+        //  new NngChangeSizeDialog(this);
 	      add(new NngMainPanel(this));
 	      pack();
 	      Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

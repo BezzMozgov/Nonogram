@@ -10,13 +10,14 @@ import Logic.TestClass;
 
 public class NngCenterPanel extends JPanel implements ActionListener {
 	JButton[][] buttonSet;
+	JTextField[][] textFieldSetRows;
+	JTextField[][] textFieldSetColumns;
 	private JPanel northInfoPanel;
 	private JPanel northTextFieldPanel;
 	private JPanel westTextFieldPanel;
 	private JPanel centerButtonPanel;
 	
 	public NngCenterPanel() {
-		//setLayout();
 		GridBagLayout gbLayout = new GridBagLayout();
 		GridBagConstraints constraints = new GridBagConstraints();
 		setLayout(gbLayout);
@@ -35,7 +36,6 @@ public class NngCenterPanel extends JPanel implements ActionListener {
 		constraints.gridwidth = 1;
 		constraints.gridx = 0;
 		constraints.gridy = 0;
-		//constraints.gridwidth = 2;
 		gbLayout.setConstraints(northInfoPanel, constraints);
 		add(northInfoPanel);
 		
@@ -43,12 +43,10 @@ public class NngCenterPanel extends JPanel implements ActionListener {
 		northTextFieldPanel.setLayout(new GridLayout(NngPuzzleReader.getMax(),TestClass.getCols()));
 		for (int i = 0; i < NngPuzzleReader.getMax(); i++) {
 			for (int k = 0; k < TestClass.getCols(); k++){
-				addNorthTextField();
+				northTextFieldPanel.add(addTextField());
 			}
 		}
 		constraints.fill = GridBagConstraints.BOTH;
-		//constraints.gridheight = 1;
-		//constraints.gridwidth = 1;
 		constraints.gridx = 1;
 		constraints.gridy = 0;
 		constraints.gridwidth = 2;   //2 columns wide
@@ -60,7 +58,7 @@ public class NngCenterPanel extends JPanel implements ActionListener {
 		System.out.println(TestClass.getRows()+ " " + NngPuzzleReader.getMax() + " " + TestClass.getCols());
 		for (int i = 0; i < TestClass.getRows(); i++) {
 			for (int k = 0; k < NngPuzzleReader.getMax(); k++){
-				addWestTextField();
+				westTextFieldPanel.add(addTextField());
 			}
 		}
 		constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -68,7 +66,6 @@ public class NngCenterPanel extends JPanel implements ActionListener {
 		constraints.gridwidth = 1;
 		constraints.gridx = 0;
 		constraints.gridy = 1;
-		//constraints.gridwidth = 2;
 		gbLayout.setConstraints(westTextFieldPanel, constraints);
 		add(westTextFieldPanel);
 		
@@ -106,31 +103,20 @@ public class NngCenterPanel extends JPanel implements ActionListener {
 		System.out.println(""+i+" "+k);
 	}
 	
-	private void addNorthTextField()
+	private JTextField addTextField()
 	{
 		JTextField textField = new JTextField();
-	//	textField.setColumns(1);
 		textField.setPreferredSize(new Dimension(20,20));
+		textField.setBackground(Color.LIGHT_GRAY);
 		textField.addActionListener(this);
 		// code needed textField.setText(arrayWithPuzzleValue);
-		northTextFieldPanel.add(textField);
-	}
-	
-	private void addWestTextField()
-	{
-		JTextField textField = new JTextField();
-	//	textField.setColumns(1);
-		textField.setPreferredSize(new Dimension(20,20));
-		textField.addActionListener(this);
-		// code needed textField.setText(arrayWithPuzzleValue);
-		westTextFieldPanel.add(textField);
+		return textField;
 	}
 	
 	public void actionPerformed (ActionEvent e) {
 		Object source = e.getSource();
         if (source instanceof JButton) {
         	Color background = ((JButton)source).getBackground();
-        	System.out.println(background);
         	String empty = ((JButton)source).getText();
         	       	
         	if ( background.equals(Color.WHITE) && empty == "") {
@@ -155,7 +141,7 @@ class infoComponents extends JPanel {
 	    g.drawLine(0,0, (int)endPoint.getHeight(), (int)endPoint.getWidth());  
 	    
 	    g.setFont(new Font("Serif", Font.BOLD, 16));
-	    g.drawString("Rows", (int)endPoint.getHeight()/100*15, (int)endPoint.getWidth()/100*75);
-	    g.drawString("Cols", (int)endPoint.getHeight()/100*50, (int)endPoint.getWidth()/100*30);
+	    g.drawString(""+TestClass.getRows(), (int)endPoint.getHeight()/10*2, (int)endPoint.getWidth()/10*8);
+	    g.drawString(""+TestClass.getCols(), (int)endPoint.getHeight()/10*7, (int)endPoint.getWidth()/10*3);
 	   }
 }
