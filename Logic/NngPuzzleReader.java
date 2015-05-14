@@ -7,8 +7,8 @@ import exceptions.*;
 public class NngPuzzleReader {
 	ArrayList<ArrayList<Integer>> tempArray = new ArrayList<ArrayList<Integer>>();
 	private int size;
-	private static int max = 5; // default size
-	private File file;		//файл (входящий)
+	private static int max = 5; // default textBox size
+	private File file;
 	private BufferedReader br = null;
 	private String line;			
 	private String[] mainHeadersLines = null;
@@ -28,7 +28,6 @@ public class NngPuzzleReader {
 		private void readHeadFromFile() 
 		{
 			max = 0;
-			System.out.println("+==================================");
 			mainHeadersLines = line.split("\\|"); // dividing puzzle header on rows and columns
 			TestClass.setHeaderRows(parse(mainHeadersLines[0]));
 			TestClass.setRows(size);
@@ -45,11 +44,11 @@ public class NngPuzzleReader {
 		
 		private ArrayList<ArrayList<Integer>> parse(String oneSideHeaderLine) {
 			String[] oneHeaderLineSet = oneSideHeaderLine.split("\\,"); // dividing header on lines
-			//System.out.
+
 			for (String oneHeaderLine : oneHeaderLineSet) {
 				size = oneHeaderLineSet.length; // border length
 				ArrayList<Integer> header = new ArrayList();
-                String[] oneHeaderValueSet = oneHeaderLine.split(" "); // divideng header line on separate values
+                String[] oneHeaderValueSet = oneHeaderLine.split(" "); // dividing header line on separate values
                 
                 if ( isMax(oneHeaderValueSet)) {
             		max = oneHeaderValueSet.length;

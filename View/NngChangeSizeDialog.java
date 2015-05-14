@@ -24,8 +24,6 @@ public class NngChangeSizeDialog extends JDialog implements ActionListener {
         
         panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panel.setBorder(title);
-        // panel.setBorder(BorderFactory.createLineBorder(Color.black));
-        //panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 0));
 
         button = new JButton("OK");
         button.addActionListener(this);
@@ -42,13 +40,12 @@ public class NngChangeSizeDialog extends JDialog implements ActionListener {
         add(panel);
         setSize(250, 120);
         setLocationRelativeTo(parent);
-       setModal(true);
+        setModal(true);
         setVisible(true);
-       setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	}
 	
         public void actionPerformed(ActionEvent e) {
-             //code needed
         	if (e.getSource() == button) {
         		try {
 	        		TestClass.setRows(Integer.parseInt(textFieldRows.getText()));
@@ -56,7 +53,7 @@ public class NngChangeSizeDialog extends JDialog implements ActionListener {
 	        		parent.flush();
 	        		dispose();
         		} catch (NumberFormatException err) {
-        			JOptionPane.showMessageDialog(this, "Numbers of ROWS and COLUMNS should be integer");
+        			JOptionPane.showMessageDialog(this, "Numbers should be integer\n" + err.getMessage());
         		} 
     		}
         }

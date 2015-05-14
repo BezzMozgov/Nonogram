@@ -9,9 +9,9 @@ import Logic.NngPuzzleReader;
 import Logic.TestClass;
 
 public class NngCenterPanel extends JPanel implements ActionListener {
-	JButton[][] buttonSet;
-	JTextField[][] textFieldSetRows;
-	JTextField[][] textFieldSetColumns;
+	private JButton[][] buttonSet;
+	private JTextField[][] textFieldSetRows;
+	private JTextField[][] textFieldSetColumns;
 	private JPanel northInfoPanel;
 	private JPanel northTextFieldPanel;
 	private JPanel westTextFieldPanel;
@@ -23,6 +23,8 @@ public class NngCenterPanel extends JPanel implements ActionListener {
 		setLayout(gbLayout);
 		
 		buttonSet = new JButton[TestClass.getRows()][TestClass.getCols()];
+		textFieldSetRows = new JTextField[TestClass.getRows()][NngPuzzleReader.getMax()];
+		textFieldSetColumns = new JTextField[NngPuzzleReader.getMax()][TestClass.getCols()];// or vice versa
 		
         constraints.fill = GridBagConstraints.HORIZONTAL;
         
@@ -43,7 +45,7 @@ public class NngCenterPanel extends JPanel implements ActionListener {
 		northTextFieldPanel.setLayout(new GridLayout(NngPuzzleReader.getMax(),TestClass.getCols()));
 		for (int i = 0; i < NngPuzzleReader.getMax(); i++) {
 			for (int k = 0; k < TestClass.getCols(); k++){
-				northTextFieldPanel.add(addTextField());
+				northTextFieldPanel.add(addTextField(textFieldSetColumns, i, k));
 			}
 		}
 		constraints.fill = GridBagConstraints.BOTH;
@@ -58,7 +60,7 @@ public class NngCenterPanel extends JPanel implements ActionListener {
 		System.out.println(TestClass.getRows()+ " " + NngPuzzleReader.getMax() + " " + TestClass.getCols());
 		for (int i = 0; i < TestClass.getRows(); i++) {
 			for (int k = 0; k < NngPuzzleReader.getMax(); k++){
-				westTextFieldPanel.add(addTextField());
+				westTextFieldPanel.add(addTextField(textFieldSetRows, i, k));
 			}
 		}
 		constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -100,15 +102,15 @@ public class NngCenterPanel extends JPanel implements ActionListener {
 		button.addActionListener(this);
 		buttonSet[i][k] = button;
 		centerButtonPanel.add(button);
-		System.out.println(""+i+" "+k);
 	}
 	
-	private JTextField addTextField()
+	private JTextField addTextField(JTextField[][] txtFieldSet, int i, int k)
 	{
 		JTextField textField = new JTextField();
 		textField.setPreferredSize(new Dimension(20,20));
 		textField.setBackground(Color.LIGHT_GRAY);
 		textField.addActionListener(this);
+		txtFieldSet[i][k] = textField;
 		// code needed textField.setText(arrayWithPuzzleValue);
 		return textField;
 	}

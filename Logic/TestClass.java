@@ -1,8 +1,6 @@
 package Logic;
 
 import java.util.*;
-import View.*;
-import exceptions.*;
 
 public class TestClass {
 	private static ArrayList<ArrayList<Integer>> headerRows = new ArrayList<ArrayList<Integer>>();
@@ -16,16 +14,20 @@ public class TestClass {
 	
 	public static void setRows(int rows)
 	{
-		if (rows < 1 || rows > 50) {
-			return;
+		if (rows < 1 ) {
+			throw new NumberFormatException("and can not be less than 1");
+		} else if (rows > 50) {
+			throw new NumberFormatException("and can not be more than 50");
 		}
 		TestClass.rows = rows;
 	}
 	
 	public static void setCols(int cols) 
 	{
-		if (cols < 1 || cols > 50) {
-			return;
+		if (cols < 1 ) {
+			throw new NumberFormatException("and can not be less than 1");
+		} else if (cols > 50) {
+			throw new NumberFormatException("and can not be more than 50");
 		}
 		TestClass.cols = cols;
 	}
@@ -40,22 +42,10 @@ public class TestClass {
 	
 	public static void setHeaderRows(ArrayList<ArrayList<Integer>> array) {
 		headerRows = array;
-		System.out.println("ROWS");
-		for( ArrayList<Integer> i : array){
-		    for (Integer j : i ) {
-		    	System.out.println(String.valueOf(j));
-		    }
-		}
 	}
 	
 	public static void setHeaderColumns(ArrayList<ArrayList<Integer>> array) {
 		headerColumns = array;
-		System.out.println("COLS");
-		for( ArrayList<Integer> i : array){
-		    for (Integer j : i ) {
-		    	System.out.println(String.valueOf(j));
-		    }
-		}
 	}
 	
 	public static ArrayList<ArrayList<Integer>> getHeaderRows() {
