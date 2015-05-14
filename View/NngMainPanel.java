@@ -39,7 +39,6 @@ public class NngMainPanel extends JPanel
 		add(menuPanel, BorderLayout.NORTH);
 		add(centerPanel, BorderLayout.CENTER);
 		
-		mainFrame.flush();
 		revalidate();
 	}
 }

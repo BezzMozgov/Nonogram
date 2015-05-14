@@ -10,13 +10,15 @@ import exceptions.SizeInputException;
 import Logic.TestClass;
 
 public class NngChangeSizeDialog extends JDialog implements ActionListener {
+	NngFrame parent;
 	JPanel panel;
 	JButton button;
 	JTextField textFieldRows;
 	JTextField textFieldCols;
 
-	public NngChangeSizeDialog(JFrame parent) 
+	public NngChangeSizeDialog(NngFrame parent) 
 	{
+		this.parent = parent;
         JLabel label = new JLabel(" X "); 
         TitledBorder title = BorderFactory.createTitledBorder("Input number of ROWS X COLUMNS");
         
@@ -51,6 +53,7 @@ public class NngChangeSizeDialog extends JDialog implements ActionListener {
         		try {
 	        		TestClass.setRows(Integer.parseInt(textFieldRows.getText()));
 	        		TestClass.setCols(Integer.parseInt(textFieldCols.getText()));
+	        		parent.flush();
 	        		dispose();
         		} catch (NumberFormatException err) {
         			JOptionPane.showMessageDialog(this, "Numbers of ROWS and COLUMNS should be integer");

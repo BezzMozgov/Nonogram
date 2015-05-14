@@ -10,11 +10,13 @@ import exceptions.*;
 
 public class NngFrame extends JFrame
 {
+	NngMainPanel mainPanel;
    public NngFrame()
    {
 	      setTitle("Nonogram");
+	      mainPanel = new NngMainPanel(this);
         //  new NngChangeSizeDialog(this);
-	      add(new NngMainPanel(this));
+	      add(mainPanel);
 	      pack();
 	      Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	      Point middle = new Point(screenSize.width / 2, screenSize.height / 2);
@@ -24,6 +26,7 @@ public class NngFrame extends JFrame
 	}
    
    public void flush() {
+	   mainPanel.flush();
 	   pack();
    }
    

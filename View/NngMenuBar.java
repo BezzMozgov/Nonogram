@@ -57,7 +57,8 @@ public class NngMenuBar extends JMenuBar implements ActionListener {
 			if (ret == JFileChooser.APPROVE_OPTION) {
 			    File file = fChooser.getSelectedFile();
 			    new NngPuzzleReader(file).buildHead();
-			    mainPanel.flush();
+			    NngFrame parent = (NngFrame)SwingUtilities.getWindowAncestor(this);
+			    parent.flush();
 			}
 		}
 		if (e.getSource() == itemExit) {
@@ -65,8 +66,7 @@ public class NngMenuBar extends JMenuBar implements ActionListener {
 		}
 		
 		if (e.getSource() == itemChangeSize) {
-			JFrame parentFrame = (JFrame) this.getParent();
-			JDialog dialog = new NngChangeSizeDialog(parentFrame);
+			new NngChangeSizeDialog((NngFrame)SwingUtilities.getWindowAncestor(this));
 		}
 	}
 }
