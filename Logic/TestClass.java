@@ -3,13 +3,15 @@ package Logic;
 import java.util.*;
 
 public class TestClass {
-	private static ArrayList<ArrayList<Integer>> headerRows = new ArrayList<ArrayList<Integer>>();
-	private static ArrayList<ArrayList<Integer>> headerColumns = new ArrayList<ArrayList<Integer>>();
-	private static int rows = 5;
-	private static int cols = 5;
+	private static ArrayList<ArrayList<Integer>> headerRows = null;
+	private static ArrayList<ArrayList<Integer>> headerColumns = null;
+	private static int rows = 6;
+	private static int cols = 4;
 	
 	public TestClass () {
 	//	addObserver((Observer)view);
+		headerRows = new ArrayList<ArrayList<Integer>>();
+		headerColumns = new ArrayList<ArrayList<Integer>>();
 	}
 	
 	public static void setRows(int rows)

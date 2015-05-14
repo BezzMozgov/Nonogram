@@ -24,7 +24,7 @@ public class NngCenterPanel extends JPanel implements ActionListener {
 		
 		buttonSet = new JButton[TestClass.getRows()][TestClass.getCols()];
 		textFieldSetRows = new JTextField[TestClass.getRows()][NngPuzzleReader.getMax()];
-		textFieldSetColumns = new JTextField[NngPuzzleReader.getMax()][TestClass.getCols()];// or vice versa
+		textFieldSetColumns = new JTextField[TestClass.getCols()][NngPuzzleReader.getMax()];// or vice versa
 		
         constraints.fill = GridBagConstraints.HORIZONTAL;
         
@@ -40,13 +40,27 @@ public class NngCenterPanel extends JPanel implements ActionListener {
 		constraints.gridy = 0;
 		gbLayout.setConstraints(northInfoPanel, constraints);
 		add(northInfoPanel);
-		
+
 		// adding a grid of text fields to sub panel(NORTH)
 		northTextFieldPanel.setLayout(new GridLayout(NngPuzzleReader.getMax(),TestClass.getCols()));
 		for (int i = 0; i < NngPuzzleReader.getMax(); i++) {
 			for (int k = 0; k < TestClass.getCols(); k++){
-				northTextFieldPanel.add(addTextField(textFieldSetColumns, i, k));
+				System.out.println("TextFieldSet["+i+"]["+k+"]\n");
+				northTextFieldPanel.add(addTextField(textFieldSetColumns, k, i));
 			}
+		}
+		if (TestClass.getHeaderColumns() != null) {
+				for (int i = 0; i < textFieldSetColumns.length; i++) {
+					for (int k = 0; k < TestClass.getHeaderColumns().get(i).size(); k++) {
+						//may be problems with getMax cos its common for both rows and cols
+						
+						int textFieldIndex = NngPuzzleReader.getMax()-k-1;
+						int puzzleColumnIndex = TestClass.getHeaderColumns().get(i).size()-k-1;
+						//System.out.println("k="+k+" i="+i+"\n");
+						textFieldSetColumns[i][textFieldIndex]
+								.setText(""+TestClass.getHeaderColumns().get(i).get(puzzleColumnIndex));
+					}
+				}
 		}
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.gridx = 1;
@@ -57,10 +71,22 @@ public class NngCenterPanel extends JPanel implements ActionListener {
 		
 		// adding a grid of text fields to sub panel(WEST)
 		westTextFieldPanel.setLayout(new GridLayout(TestClass.getRows(), NngPuzzleReader.getMax()));
-		System.out.println(TestClass.getRows()+ " " + NngPuzzleReader.getMax() + " " + TestClass.getCols());
 		for (int i = 0; i < TestClass.getRows(); i++) {
 			for (int k = 0; k < NngPuzzleReader.getMax(); k++){
 				westTextFieldPanel.add(addTextField(textFieldSetRows, i, k));
+			}
+		}
+		if (TestClass.getHeaderRows() != null) {
+			for (int i = 0; i < textFieldSetRows.length; i++) {
+				for (int k = 0; k < TestClass.getHeaderRows().get(i).size(); k++) {
+					//may be problems with getMax cos its common for both rows and cols
+					
+					int textFieldIndex = NngPuzzleReader.getMax()-k-1;
+					int puzzleRowIndex = TestClass.getHeaderRows().get(i).size()-k-1;
+					
+					textFieldSetRows[i][textFieldIndex]
+							.setText(""+TestClass.getHeaderRows().get(i).get(puzzleRowIndex));
+				}
 			}
 		}
 		constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -73,7 +99,6 @@ public class NngCenterPanel extends JPanel implements ActionListener {
 		
 		// adding a grid of buttons to subpanel (CENTER)
 		centerButtonPanel.setLayout(new GridLayout(TestClass.getRows(),TestClass.getCols()));
-		
 		for (int i = 0; i < TestClass.getRows(); i++) {
 			for (int k = 0; k < TestClass.getCols(); k++) {
 				addButton(i, k);
@@ -110,6 +135,7 @@ public class NngCenterPanel extends JPanel implements ActionListener {
 		textField.setPreferredSize(new Dimension(20,20));
 		textField.setBackground(Color.LIGHT_GRAY);
 		textField.addActionListener(this);
+	//	textField.setText(""+i+";"+k);
 		txtFieldSet[i][k] = textField;
 		// code needed textField.setText(arrayWithPuzzleValue);
 		return textField;
