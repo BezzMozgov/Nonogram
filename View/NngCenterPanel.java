@@ -45,7 +45,6 @@ public class NngCenterPanel extends JPanel implements ActionListener {
 		northTextFieldPanel.setLayout(new GridLayout(NngPuzzleReader.getMax(),TestClass.getCols()));
 		for (int i = 0; i < NngPuzzleReader.getMax(); i++) {
 			for (int k = 0; k < TestClass.getCols(); k++){
-				System.out.println("TextFieldSet["+i+"]["+k+"]\n");
 				northTextFieldPanel.add(addTextField(textFieldSetColumns, k, i));
 			}
 		}
@@ -56,7 +55,7 @@ public class NngCenterPanel extends JPanel implements ActionListener {
 						
 						int textFieldIndex = NngPuzzleReader.getMax()-k-1;
 						int puzzleColumnIndex = TestClass.getHeaderColumns().get(i).size()-k-1;
-						//System.out.println("k="+k+" i="+i+"\n");
+						
 						textFieldSetColumns[i][textFieldIndex]
 								.setText(""+TestClass.getHeaderColumns().get(i).get(puzzleColumnIndex));
 					}
@@ -137,7 +136,6 @@ public class NngCenterPanel extends JPanel implements ActionListener {
 		textField.addActionListener(this);
 	//	textField.setText(""+i+";"+k);
 		txtFieldSet[i][k] = textField;
-		// code needed textField.setText(arrayWithPuzzleValue);
 		return textField;
 	}
 	

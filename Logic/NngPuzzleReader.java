@@ -2,13 +2,11 @@ package Logic;
 
 import java.io.*;
 import java.util.*;
-import exceptions.*;
 
 public class NngPuzzleReader {
-	ArrayList<ArrayList<Integer>> tempArray = new ArrayList<ArrayList<Integer>>();
+	private ArrayList<ArrayList<Integer>> tempArray = null;
 	private int size;
 	private static int max = 5; // default textBox size
-	private File file;
 	private BufferedReader br = null;
 	private String line;			
 	private String[] mainHeadersLines = null;
@@ -16,7 +14,6 @@ public class NngPuzzleReader {
 	public NngPuzzleReader(File file) 
 		//	throws InitErrorException, IOException
 		{
-			this.file = file;
 			try {
 				this.br = new BufferedReader(new FileReader(file));
 				this.line = br.readLine();
@@ -29,6 +26,7 @@ public class NngPuzzleReader {
 		{
 			max = 0;
 			mainHeadersLines = line.split("\\|"); // dividing puzzle header on rows and columns
+
 			TestClass.setHeaderRows(parse(mainHeadersLines[0]));
 			TestClass.setRows(size);
 			TestClass.setHeaderColumns(parse(mainHeadersLines[1]));
@@ -43,11 +41,12 @@ public class NngPuzzleReader {
 		}
 		
 		private ArrayList<ArrayList<Integer>> parse(String oneSideHeaderLine) {
+			tempArray = new ArrayList<ArrayList<Integer>>();
 			String[] oneHeaderLineSet = oneSideHeaderLine.split("\\,"); // dividing header on lines
 
 			for (String oneHeaderLine : oneHeaderLineSet) {
 				size = oneHeaderLineSet.length; // border length
-				ArrayList<Integer> header = new ArrayList();
+				ArrayList<Integer> header = new ArrayList<Integer>();
                 String[] oneHeaderValueSet = oneHeaderLine.split(" "); // dividing header line on separate values
                 
                 if ( isMax(oneHeaderValueSet)) {

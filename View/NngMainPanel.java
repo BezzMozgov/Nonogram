@@ -32,7 +32,6 @@ public class NngMainPanel extends JPanel
 		menuPanel = new JPanel(new BorderLayout());
 		centerPanel = new JPanel();
 		
-		//adding menu to sub panel
 		menuPanel.add(new NngMenuBar(this));
 		centerPanel.add(new NngCenterPanel());
 		
